@@ -138,7 +138,6 @@ public class NetworkControllerForClient : Photon.MonoBehaviour
 				if (source.clip.name == ClipName) {
 					if(!source.isPlaying){
 						source.Play ();
-						Handheld.Vibrate ();	//ここに振動入れたけど効果あるのかな
 					}
 				}
 			}

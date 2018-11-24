@@ -155,8 +155,9 @@ public class NetworkControllerForHost : Photon.MonoBehaviour
 	 		}
 	 	}
 	 }
-	/*
+	
 	// for debug (not using vibe)
+	 /*
 	[PunRPC]
 	void SpawnObject(int PlayerID)
 	{
@@ -186,5 +187,6 @@ public class NetworkControllerForHost : Photon.MonoBehaviour
 				}
 			}
 		}
-	}*/
+	}
+	*/
 }
