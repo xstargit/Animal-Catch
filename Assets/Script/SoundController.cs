@@ -19,7 +19,7 @@ public class SoundController : Photon.MonoBehaviour {
 	// public Dictionary<string, float> recievedVolumeDictForPlayerB = new Dictionary<string,float> ();
 
 	private PhotonView  m_photonView    = null;
-	private string[] objectNameList = {"Cat", "Chicken","Crow","Duck","Gorilla","Iwashi","Sheep"};
+	private string[] objectNameList = {"Cat","Chicken","Crow","Duck","Gorilla","Iwashi","Sheep","Pig","Dog"};
 
     public bool CompareDict<TKey, TValue>( Dictionary<TKey, TValue> dict1, Dictionary<TKey, TValue> dict2)
      {

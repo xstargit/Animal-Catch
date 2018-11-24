@@ -22,9 +22,10 @@ public class GameManagerScript : MonoBehaviour {
 	public Text BscoreText;
 
 	public AudioSource GameManageAudio;	//ゲーム終了時に効果音を再生
+	public AudioSource GameEnd;
 
 	void Start () {
-		GameManageAudio = gameObject.GetComponent<AudioSource> ();
+		//GameManageAudio = gameObject.GetComponent<AudioSource> ();
 	}
 
 	public void GameStartOn(){
@@ -37,6 +38,7 @@ public class GameManagerScript : MonoBehaviour {
 		}
 		//全員の接続が確認出来たら
 		if(gameStart){
+			GameManageAudio.Play ();
 			gameTime -= Time.deltaTime;	//時間経過で制限時間の残りを減らしていく
 			float timeTextTime = Mathf.Floor (gameTime);	//uGUI表示時に小数点以下を捨てる
 
@@ -55,6 +57,7 @@ public class GameManagerScript : MonoBehaviour {
 					if (scoreB > scoreA) TimeText.text = "PlayerB WIN";	//PlayerBの方が　同上
 					if (scoreB == scoreA) TimeText.text = "DRAW";		//プレイヤーのスコアが同じなら引き分け表示
 
+					GameEnd.Play ();
 					//AscoreText.text = null;	
 					//BscoreText.text = null;
 					gameEnd = true;		//処理が重複しないようにboolを切る
