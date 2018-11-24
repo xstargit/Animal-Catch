@@ -40,3 +40,4 @@ client_test*
 # All
 .DS_Store
 Icon*
+test_client\.app/
