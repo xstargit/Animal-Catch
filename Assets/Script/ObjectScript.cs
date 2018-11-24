@@ -13,11 +13,7 @@ using Photon;
 
 public class ObjectScript : Photon.MonoBehaviour {
 
-	//PC側で音を鳴らしていた頃の名残
-	//public AudioSource objectCollisionAudio;
-	//public AudioClip[] objectCollisionClip;
-	public string playerName;
-	string m_SceneName;	//大事そうだけどなにをしているのかわからない変数
+	public string lastPlayerName;
 	public GameObject gameManager;					//ゲーム管理オブジェクト　ここではスコア管理を呼び出す
 	public GameManagerScript gameManagerScript;	//スコアを管理しているスクリプト
 	public NetworkControllerForHost networkInfo;	//大事そうだが使っていなさそうな変数
@@ -41,45 +37,32 @@ public class ObjectScript : Photon.MonoBehaviour {
 		//スコアの管理にアクセスするために取得
 		gameManager = GameObject.Find("GameManagerForHostServer");
 		gameManagerScript = gameManager.GetComponent<GameManagerScript> ();
-		networkInfo = gameManager.GetComponent<NetworkControllerForHost> ();	//大事そうだが使っていなさそう
 	}
 
 	void OnCollisionStay(Collision col){
-		//objectCollisionAudio.Play ();		//PC側で効果音再生の名残
-		string objectName = this.transform.name;	//わからん　後のplayerNameと役割がかぶっていそう
 
-		//ぶつかったコントローラの名前（PlayerAかBか）を取得
-		GameObject player = getChildGameObject (col.transform.gameObject, "Player");
+		string objectName = col.gameObject.name;
 
-		colname = col.gameObject.name;
+		if (objectName == "Controller"){
+			GameObject player = getChildGameObject (col.transform.gameObject, "Player");
+			lastPlayerName = player.transform.name;
+		}
 
-		//PlayerがSpawnされていなかったら発動しない
-		if (player != null){
-			playerName = player.transform.name;	//スコアをプレイヤーA・Bどちらに加算するのか判定するための名前格納
-			Debug.Log (colname);
-
-			//ここのif文が発動していないのか，（前のバージョンと見比べてほしい，，）
-			//Goalタグがついたオブジェクトに当たってもなんにも起きない
-			//タグじゃなくて名前で判定しようともしたけどできない
-			//取得状況を見たくてpublicだらけにしてます，すません，，
-
-			//ゴールに当たったらスコアを加算する処理
-			if(colname == "Goal"){
-				Debug.Log ("Goalに衝突");
-				switch (playerName) {	//単純にプレイヤーAかBかオブジェクト名で判断しちゃう
-				case "Player2":
-					gameManagerScript.scoreA += 10;
-					Debug.Log(gameManagerScript.scoreA);
-					break;
-				case "Player3":
-					gameManagerScript.scoreB += 10;
-					Debug.Log(gameManagerScript.scoreB);
-					break;
-				}
-				Debug.Log ("破壊します");
-				audioSource.PlayOneShot (goalsound,0.7f);
-				Destroy (this.gameObject); //スコア加算が終わったら自身を破壊
+		else if (objectName == "Goal"){
+			switch (lastPlayerName) {
+			case "Player2":
+				gameManagerScript.scoreA += 10;
+				Debug.Log("Updated Score A : " + gameManagerScript.scoreA);
+				break;
+			case "Player3":
+				gameManagerScript.scoreB += 10;
+				Debug.Log("Updated Score B : " + gameManagerScript.scoreB);
+				break;
 			}
+			// Debug.Log ("破壊します");
+			// audioSource.PlayOneShot (goalsound,0.7f);
+			this.transform.parent = null;
+			Destroy (this.gameObject); //スコア加算が終わったら自身を破壊
 		}
 	}
 }
