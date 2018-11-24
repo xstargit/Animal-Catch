@@ -123,6 +123,7 @@ public class NetworkControllerForClient : Photon.MonoBehaviour
 				if (clip.name == ClipName) {
 					TrackerAudio.clip = clip;
 					TrackerAudio.Play ();
+					Handheld.Vibrate ();
 				}
 			}
 		}
