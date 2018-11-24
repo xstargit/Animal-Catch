@@ -49,16 +49,18 @@ public class ObjectScript : Photon.MonoBehaviour {
 		}
 
 		else if (objectName == "Goal"){
-			switch (lastPlayerName) {
-			case "Player2":
+			//switch (lastPlayerName) {
+			//case "Player2":
+				//Debug.Log ("Player2に加算じゃ");
 				gameManagerScript.scoreA += 10;
-				Debug.Log("Updated Score A : " + gameManagerScript.scoreA);
-				break;
-			case "Player3":
-				gameManagerScript.scoreB += 10;
-				Debug.Log("Updated Score B : " + gameManagerScript.scoreB);
-				break;
-			}
+				//Debug.Log("Updated Score A : " + gameManagerScript.scoreA);
+				//break;
+			//case "Player3":
+				//Debug.Log ("Player3に加算じゃ");
+				//gameManagerScript.scoreB += 10;
+				//Debug.Log("Updated Score B : " + gameManagerScript.scoreB);
+				//break;
+			//}
 			// Debug.Log ("破壊します");
 			// audioSource.PlayOneShot (goalsound,0.7f);
 			this.transform.parent = null;

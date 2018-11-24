@@ -35,10 +35,10 @@ public class GameManagerScript : MonoBehaviour {
 	void Update () {
 		if(Input.GetKeyDown(KeyCode.S)){
 			gameStart = true;
+			GameManageAudio.Play ();
 		}
 		//全員の接続が確認出来たら
 		if(gameStart){
-			GameManageAudio.Play ();
 			gameTime -= Time.deltaTime;	//時間経過で制限時間の残りを減らしていく
 			float timeTextTime = Mathf.Floor (gameTime);	//uGUI表示時に小数点以下を捨てる
 
